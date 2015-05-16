@@ -1,0 +1,28 @@
+public int minSubArrayLen(int s, int[] nums) {
+        if(nums==null||nums.length==0)
+          return 0;
+        if(s==1)
+          return 1;
+        int start=0,end=0; //窗口起始点和结束点
+        int temp=0;
+        int cur=nums.length+1;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>=s)
+             return 1;
+            temp+=nums[i];
+            if(temp>=s)
+            {
+                end=i;
+                if((end-start+1)<cur)
+                  cur=end-start+1;
+                do{                                         //当前窗口和大于等于s，则起始点右移 再将新和与s比较
+                temp-=nums[start];
+                start++;
+                if((end-start+1)<cur&&temp>=s)
+                  cur=end-start+1;
+                }while(temp>=s&&start<end);
+            }
+            
+        }
+        return cur==nums.length+1?0:cur;
+    }
