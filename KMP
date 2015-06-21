@@ -1,0 +1,45 @@
+public class KMP {
+	public int[] next(String dst){
+		int[] arr=new int[dst.length()];
+		char[] temp=dst.toCharArray();
+		arr[0]=-1;
+		int  i=0;
+		for(int j=1;j<dst.length();j++){
+			i=arr[j-1];
+			while(i>=0&&temp[j]!=temp[i+1]){
+				i=arr[i];
+			}
+			if(temp[j]==temp[i+1])
+				arr[j]=i+1;
+			else
+				arr[j]=-1;
+		}
+		return arr;
+	}
+public void pattern(String src,String dst){
+	char[] char1=src.toCharArray();
+	char[] char2=dst.toCharArray();
+	int [] next=next(dst);
+	int i=0,j=0;
+	while(i<src.length()){
+		if(char1[i]==char2[j]){
+			if(j==dst.length()-1)
+			{
+				System.out.println( i-j);
+				break;
+			}	
+			i++;
+			j++;
+		}
+		else if(j==0) i++;
+		else
+			j=next[j-1]+1;
+	}
+}
+ public static void main(String[] args){
+	String src="abc";
+	String dst="bc";
+	KMP test=new KMP();
+	test.pattern(src, dst);
+ }
+}
