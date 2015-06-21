@@ -1,0 +1,22 @@
+public int[][] generateMatrix(int n) {
+		int [][]matrix=new int[n][n];
+		if(n<=0)
+			return matrix;
+		int up=0,down=n-1,left=0,right=n-1;
+		int num=1;
+		while(up<=down&&left<=right){
+			for(int i=left;i>=0&&i<=right&&up<=down;i++)
+				matrix[up][i]=num++;
+			up++;
+			for(int i=up;i>=0&&i<=down&&left<=right;i++)
+				matrix[i][right]=num++;
+			right--;
+			for(int i=right;i>=0&&i>=left&&up<=down;i--)
+				matrix[down][i]=num++;
+			down--;
+			for(int i=down;i>=0&&i>=up&&left<=right;i--)
+				matrix[i][left]=num++;
+			left++;
+		}
+		return matrix;
+	}
